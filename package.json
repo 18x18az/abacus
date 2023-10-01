@@ -1,0 +1,27 @@
+{
+  "name": "@18x18az/abacus",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "https://github.com/18x18az/abacus",
+  "author": "Alec Miller <alecmichaelmiller@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "lint": "ts-standard",
+    "prepare": "husky install",
+    "semantic-release": "semantic-release --branches main"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "husky": "^8.0.3",
+    "ts-standard": "^12.0.2",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@18x18az/maestro-interfaces": "^1.5.1"
+  }
+}
