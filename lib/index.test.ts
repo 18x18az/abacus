@@ -1,5 +1,5 @@
-import { AUTON_WINNER, AllianceScore, ELEVATION, MatchScore } from '@18x18az/maestro-interfaces'
-import { calculateMatchScore } from './index'
+import { AUTON_WINNER, AllianceScore, ELEVATION, MatchScore, ROBOT1_TIER, SkillsScore } from '@18x18az/maestro-interfaces'
+import { calculateMatchScore, calculateSkillsScore } from './index'
 
 describe('calculateMatchScore', () => {
   it('should return 1 for both right now', () => {
@@ -34,5 +34,15 @@ describe('calculateMatchScore', () => {
 })
 
 describe('calculateSkillsScore', () => {
-
+  it('should return 1 for both right now', () => {
+    const teamInput: SkillsScore = {
+      goalTriballs: 0,
+      zoneTriballs: 0,
+      allianceTriballsInGoal: 0,
+      allianceTriballsInZone: 0,
+      robot1Tier: ROBOT1_TIER.NONE
+    }
+    const score = calculateSkillsScore(teamInput)
+    expect(score).toBe(1)
+  })
 })
