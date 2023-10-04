@@ -26,10 +26,11 @@ describe('calculateMatchScore', () => {
       autonWinner: AUTON_WINNER.NONE
     }
 
-    const scores = calculateMatchScore(rawScore)
+    const allElevatedRobots = [redInput.robot1Tier, redInput.robot2Tier, blueInput.robot1Tier, blueInput.robot2Tier].filter(elevation => elevation !== ELEVATION.NONE)
+    const scores = calculateMatchScore(rawScore, allElevatedRobots)
 
-    expect(scores.redScore).toBe(1)
-    expect(scores.blueScore).toBe(1)
+    expect(scores.redScore).toBe(0)
+    expect(scores.blueScore).toBe(0)
   })
 })
 
