@@ -39,7 +39,7 @@ function calculateMatchElevation (elevation, allElevatedRobots): number {
 
   const numRobotsElevated = compareElevation(elevation, allElevatedRobots)
 
-  return ( 4 - numRobotsElevated ) * 5
+  return (4 - numRobotsElevated) * 5
 }
 
 export function calculateAllianceScore (score: AllianceScore, elevationRobot1, elevationRobot2, allElevatedRobots): number {
@@ -71,7 +71,7 @@ export function calculateMatchScore (score: MatchScore, allElevatedRobots): Matc
     blueScore = blueScore + autoWin
   } else if (score.autonWinner === 'tie') {
     blueScore = blueScore + autoTie
-    redScore = redScore + autoTie 
+    redScore = redScore + autoTie
   }
 
   return { redScore, blueScore }
@@ -87,7 +87,7 @@ export function calculateSkillsScore (score: SkillsScore): number {
   const normalTriball = score.zoneTriballs.valueOf() * ZONE_POINTS
   const normalTriballGoal = score.goalTriballs.valueOf() * GOAL_POINTS
   const elevation = calculateSkillsElevation(score)
-  
+
   sum = alliance + allianceGoal + normalTriball + normalTriballGoal + elevation
 
   return sum
