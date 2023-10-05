@@ -1,4 +1,4 @@
-import { AllianceScore, MatchScore, SkillsScore, ELEVATION } from '@18x18az/maestro-interfaces'
+import { AllianceScore, MatchScore, SkillsScore, ELEVATION, ROBOT1_TIER } from '@18x18az/maestro-interfaces'
 
 interface MatchResults {
   redScore: number
@@ -8,7 +8,7 @@ function compareElevation (elevation, allElevatedRobots): number {
   let count: number = 0
 
   for (let i: number = 0; i < allElevatedRobots.length; i++) {
-    if (elevation.valueOf().charCodeAt(0) < allElevatedRobots.valueOf().charCodeAt(0)) {
+    if (elevation.charCodeAt(0) < allElevatedRobots[i].charCodeAt(0)) {
       count += 1
     } else {
       count += 0
@@ -18,18 +18,16 @@ function compareElevation (elevation, allElevatedRobots): number {
   return count
 }
 
-function calculateSkillsElevation (score: SkillsScore): number {
+function calculateSkillsElevation (score: SkillsScore, tiers): number {
   let finalScore: number = 0
-  if (score.robot1Tier === 'a') {
-    finalScore = 5
-  } else if (score.robot1Tier === 'b_d') {
-    finalScore = 10
-  } else if (score.robot1Tier === 'e_g') {
-    finalScore = 15
-  } else {
-    finalScore = 20
+
+  for (let i: number = 0; i < tiers.length; i++) {
+    if (score.robot1Tier == tiers[i]) {
+      finalScore = i
+    }
   }
-  return finalScore
+
+  return finalScore * 5
 }
 
 function calculateMatchElevation (elevation, allElevatedRobots): number {
@@ -77,7 +75,7 @@ export function calculateMatchScore (score: MatchScore, allElevatedRobots): Matc
   return { redScore, blueScore }
 }
 
-export function calculateSkillsScore (score: SkillsScore): number {
+export function calculateSkillsScore (score: SkillsScore, tiers): number {
   let sum: number = 0
   const ZONE_POINTS: number = 2
   const GOAL_POINTS: number = 5
@@ -86,7 +84,7 @@ export function calculateSkillsScore (score: SkillsScore): number {
   const allianceGoal = score.allianceTriballsInGoal.valueOf() * GOAL_POINTS
   const normalTriball = score.zoneTriballs.valueOf() * ZONE_POINTS
   const normalTriballGoal = score.goalTriballs.valueOf() * GOAL_POINTS
-  const elevation = calculateSkillsElevation(score)
+  const elevation = calculateSkillsElevation(score, tiers)
 
   sum = alliance + allianceGoal + normalTriball + normalTriballGoal + elevation
 

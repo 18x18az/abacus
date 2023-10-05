@@ -2,7 +2,7 @@ import { AUTON_WINNER, AllianceScore, ELEVATION, MatchScore, ROBOT1_TIER, Skills
 import { calculateMatchScore, calculateSkillsScore } from './index'
 
 describe('calculateMatchScore', () => {
-  it('should return 1 for both right now', () => {
+  it('should return proper score now', () => {
     const redInput: AllianceScore = {
       goalTriballs: 0,
       zoneTriballs: 0,
@@ -35,7 +35,7 @@ describe('calculateMatchScore', () => {
 })
 
 describe('calculateSkillsScore', () => {
-  it('should return 1 for both right now', () => {
+  it('should return proper score now', () => {
     const teamInput: SkillsScore = {
       goalTriballs: 0,
       zoneTriballs: 0,
@@ -43,7 +43,9 @@ describe('calculateSkillsScore', () => {
       allianceTriballsInZone: 0,
       robot1Tier: ROBOT1_TIER.NONE
     }
-    const score = calculateSkillsScore(teamInput)
-    expect(score).toBe(1)
+    const tiers = Object.values(ROBOT1_TIER)
+    console.log(tiers)
+    const score = calculateSkillsScore(teamInput, tiers)
+    expect(score).toBe(0)
   })
 })
