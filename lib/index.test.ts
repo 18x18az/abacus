@@ -41,11 +41,11 @@ describe('calculateSkillsScore', () => {
       zoneTriballs: 0,
       allianceTriballsInGoal: 0,
       allianceTriballsInZone: 0,
-      robot1Tier: ROBOT1_TIER.NONE
+      robot1Tier: ROBOT1_TIER.H
     }
     const tiers = Object.values(ROBOT1_TIER)
     console.log(tiers)
     const score = calculateSkillsScore(teamInput, tiers)
-    expect(score).toBe(0)
+    expect(score).toBe(20)
   })
 })
