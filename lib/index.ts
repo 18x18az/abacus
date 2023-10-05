@@ -1,4 +1,4 @@
-import { AllianceScore, MatchScore, SkillsScore, ELEVATION, ROBOT1_TIER } from '@18x18az/maestro-interfaces'
+import { AllianceScore, MatchScore, SkillsScore, ELEVATION } from '@18x18az/maestro-interfaces'
 
 interface MatchResults {
   redScore: number
@@ -22,7 +22,7 @@ function calculateSkillsElevation (score: SkillsScore, tiers): number {
   let finalScore: number = 0
 
   for (let i: number = 0; i < tiers.length; i++) {
-    if (score.robot1Tier == tiers[i]) {
+    if (score.robot1Tier === tiers[i]) {
       finalScore = i
     }
   }
