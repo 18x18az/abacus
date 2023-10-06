@@ -44,10 +44,10 @@ export function calculateAllianceScore (score: AllianceScore, elevationRobot1, e
   let sum: number = 0
   const ZONE_POINTS: number = 2
   const GOAL_POINTS: number = 5
-  const alliance = score.allianceTriballsInZone.valueOf() * ZONE_POINTS
-  const allianceGoal = score.allianceTriballsInGoal.valueOf() * GOAL_POINTS
-  const normalTriball = score.zoneTriballs.valueOf() * ZONE_POINTS
-  const normalTriballGoal = score.goalTriballs.valueOf() * GOAL_POINTS
+  const alliance = score.allianceTriballsInZone * ZONE_POINTS
+  const allianceGoal = score.allianceTriballsInGoal * GOAL_POINTS
+  const normalTriball = score.zoneTriballs * ZONE_POINTS
+  const normalTriballGoal = score.goalTriballs * GOAL_POINTS
   const oneRobotElevation = calculateMatchElevation(elevationRobot1, allElevatedRobots)
   const twoRobotElevation = calculateMatchElevation(elevationRobot2, allElevatedRobots)
 
@@ -80,10 +80,10 @@ export function calculateSkillsScore (score: SkillsScore, tiers): number {
   const ZONE_POINTS: number = 2
   const GOAL_POINTS: number = 5
 
-  const alliance = score.allianceTriballsInZone.valueOf() * ZONE_POINTS
-  const allianceGoal = score.allianceTriballsInGoal.valueOf() * GOAL_POINTS
-  const normalTriball = score.zoneTriballs.valueOf() * ZONE_POINTS
-  const normalTriballGoal = score.goalTriballs.valueOf() * GOAL_POINTS
+  const alliance = score.allianceTriballsInZone * ZONE_POINTS
+  const allianceGoal = score.allianceTriballsInGoal * GOAL_POINTS
+  const normalTriball = score.zoneTriballs * ZONE_POINTS
+  const normalTriballGoal = score.goalTriballs * GOAL_POINTS
   const elevation = calculateSkillsElevation(score, tiers)
 
   sum = alliance + allianceGoal + normalTriball + normalTriballGoal + elevation
