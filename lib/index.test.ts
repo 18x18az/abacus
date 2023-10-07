@@ -1,8 +1,54 @@
 import { AUTON_WINNER, AllianceScore, ELEVATION, MatchScore, ROBOT1_TIER, SkillsScore } from '@18x18az/maestro-interfaces'
 import { calculateMatchScore, calculateSkillsScore } from './index'
+import { calculateNumLowerOrSame, isLower } from './helpers'
+describe('Match Score Calculation', () => {
+  describe('Elevation Comparison', () => {
+    it('should return false if the robot is at a higher elevation', () => {
+      const robot = ELEVATION.C
+      const other = ELEVATION.B
+      const result = isLower(robot, other)
+      expect(result).toBe(false)
+    })
 
-describe('calculateMatchScore', () => {
-  it('should return proper score now', () => {
+    it('should return false if the robot is at the same elevation', () => {
+      const robot = ELEVATION.C
+      const other = ELEVATION.C
+      const result = isLower(robot, other)
+      expect(result).toBe(false)
+    })
+
+    it('should return true if the robot is at a lower elevation', () => {
+      const robot = ELEVATION.B
+      const other = ELEVATION.C
+      const result = isLower(robot, other)
+      expect(result).toBe(true)
+    })
+  })
+
+  describe('Elevation Counting', () => {
+    it('should return 4 if the robot is the only one elevated', () => {
+      const robot = ELEVATION.C
+      const allRobots = [ELEVATION.C]
+      const result = calculateNumLowerOrSame(robot, allRobots)
+      expect(result).toBe(4)
+    })
+
+    it('should return 4 if all robots are tied', () => {
+      const robot = ELEVATION.C
+      const allRobots = [ELEVATION.C, ELEVATION.C, ELEVATION.C, ELEVATION.C]
+      const result = calculateNumLowerOrSame(robot, allRobots)
+      expect(result).toBe(4)
+    })
+
+    it('should return 1 if the robot is the lowest', () => {
+      const robot = ELEVATION.C
+      const allRobots = [ELEVATION.D, ELEVATION.D, ELEVATION.D, ELEVATION.B]
+      const result = calculateNumLowerOrSame(robot, allRobots)
+      expect(result).toBe(1)
+    })
+  })
+
+  it('should return 0 if nothing is scored', () => {
     const redInput: AllianceScore = {
       goalTriballs: 0,
       zoneTriballs: 0,
@@ -26,16 +72,15 @@ describe('calculateMatchScore', () => {
       autonWinner: AUTON_WINNER.NONE
     }
 
-    const allElevatedRobots = [redInput.robot1Tier, redInput.robot2Tier, blueInput.robot1Tier, blueInput.robot2Tier].filter(elevation => elevation !== ELEVATION.NONE)
-    const scores = calculateMatchScore(rawScore, allElevatedRobots)
+    const scores = calculateMatchScore(rawScore)
 
     expect(scores.redScore).toBe(0)
     expect(scores.blueScore).toBe(0)
   })
 })
 
-describe('calculateSkillsScore', () => {
-  it('should return proper score now', () => {
+describe('Skills Score Calculation', () => {
+  it('should return 0 if nothing is scored', () => {
     const teamInput: SkillsScore = {
       goalTriballs: 0,
       zoneTriballs: 0,
@@ -43,9 +88,7 @@ describe('calculateSkillsScore', () => {
       allianceTriballsInZone: 0,
       robot1Tier: ROBOT1_TIER.NONE
     }
-    const tiers = Object.values(ROBOT1_TIER)
-    console.log(tiers)
-    const score = calculateSkillsScore(teamInput, tiers)
+    const score = calculateSkillsScore(teamInput)
     expect(score).toBe(0)
   })
 })
